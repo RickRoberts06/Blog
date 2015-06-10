@@ -1,0 +1,17 @@
+<h1> Welcome to the awesome blog, bam!! </h1>
+
+<table>
+  <% @pods.each do |f| %>
+  <tr>
+    <h3><th><%= f.title %></th></h3>
+  </tr>
+
+  <tr>
+    <td><%= f.body %></td>
+  </tr>
+</table>
+<%= link_to "Edit", pod_path(f.id) %>
+<%= link_to "Delete", delete_path(f), data: {confirm: "Are you sure?"} %>
+<br>
+<hr>
+<% end %>

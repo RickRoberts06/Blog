@@ -1,0 +1,10 @@
+
+  <%= form_for @pod do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+    <br>
+  <%= f.label :body %>
+  <%= f.text_area :body, :size => 100 %>
+    </br>
+  <%= f.submit %>
+  <% end %>
