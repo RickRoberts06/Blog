@@ -24,7 +24,7 @@ class PodsController < ApplicationController
     @pod = Pod.find params[:id]
   end
 
-  def udpate
+  def update
     @pod = Pod.find(params[:id])
 
     if @pod.update(params.require(:pod).permit([:title, :body]))

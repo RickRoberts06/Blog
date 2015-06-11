@@ -1,4 +1,12 @@
 
+<% if @pod.errors.any? %>
+  <ul>
+    <% @pod.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
   <%= form_for @pod do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>

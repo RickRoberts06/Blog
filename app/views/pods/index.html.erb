@@ -10,7 +10,7 @@
     <td><%= f.body %></td>
   </tr>
 </table>
-<%= link_to "Edit", pod_path(f.id) %>
+<%= link_to "Edit", edit_pod_path(f.id) %>
 <%= link_to "Delete", pod_path(f.id), method: :delete, data: {confirm: "Are you sure?"} %>
 <br>
 <hr>
