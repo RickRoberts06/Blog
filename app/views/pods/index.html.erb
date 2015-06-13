@@ -1,17 +1,42 @@
 <h1> Welcome to the awesome blog, bam!! </h1>
-
-<table>
-  <% @pods.each do |f| %>
-  <tr>
-    <h3><th><%= f.title %></th></h3>
-  </tr>
-
-  <tr>
-    <td><%= f.body %></td>
-  </tr>
-</table>
-<%= link_to "Edit", edit_pod_path(f.id) %>
-<%= link_to "Delete", pod_path(f.id), method: :delete, data: {confirm: "Are you sure?"} %>
-<br>
 <hr>
+
+  <% @pods.each do |pod| %>
+  <table>
+<div>
+  <tr>
+    <th><h1><%= pod.title %></h1></th>
+  </tr>
+</div>
+
+<div>
+  <tr>
+    <td><%= pod.body %></td>
+  </tr>
+</div>
+</table>
+<br>
+  <div>
+    <%= link_to "Edit", edit_pod_path(pod.id) %>
+    <%= link_to "Delete", pod_path(pod.id), method: :delete, data: {confirm: "Are you sure?"} %>
+  </div>
+
+  <div>
+    <h4> Comments </h4>
+      <ul>
+        <% pod.comment.each do |cmt| %>
+          <li><%= cmt.body %></li>
+        <% end %>
+      </ul>
+  </div>
+
+<%= form_for [pod, @comment] do |pod| %>
+<div>
+    <%= pod.text_area :body  %>
+</div>
+<%= pod.submit %>
+</form>
+
+  <% end %>
+  <hr>
 <% end %>

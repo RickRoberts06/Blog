@@ -2,6 +2,7 @@ class PodsController < ApplicationController
 
   def index
     @pods = Pod.all
+    @comment = Comment.new
   end
 
   def new

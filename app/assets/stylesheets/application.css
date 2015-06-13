@@ -1,3 +1,10 @@
+
+body {
+ margin: 0;
+ background-image: url("contemporary_china_2.png");
+ background-repeat: repeat;
+ }
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
