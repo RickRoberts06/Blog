@@ -1,42 +1,49 @@
 <h1> Welcome to the awesome blog, bam!! </h1>
 <hr>
 
-  <% @pods.each do |pod| %>
-  <table>
-<div>
-  <tr>
-    <th><h1><%= pod.title %></h1></th>
-  </tr>
-</div>
+<div class="blog">
+        <% @pods.each do |pod| %>
+        <table>
+      <div class="pod">
+        <tr>
+          <th><h1><%= pod.title %></h1></th>
+        </tr>
+      </div>
 
-<div>
-  <tr>
-    <td><%= pod.body %></td>
-  </tr>
-</div>
-</table>
-<br>
-  <div>
-    <%= link_to "Edit", edit_pod_path(pod.id) %>
-    <%= link_to "Delete", pod_path(pod.id), method: :delete, data: {confirm: "Are you sure?"} %>
-  </div>
+      <div class="pod">
+        <tr>
+          <td><%= pod.body %></td>
+        </tr>
+      </div>
+      </table>
+      <br>
+        <div class="post_edit_delete">
+          <%= link_to "Edit", edit_pod_path(pod.id) %>
+          <%= link_to "Delete", pod_path(pod.id), method: :delete, data: {confirm: "Are you sure?"} %>
+        </div>
 
-  <div>
-    <h4> Comments </h4>
-      <ul>
-        <% pod.comment.each do |cmt| %>
-          <li><%= cmt.body %></li>
+        <div class="comment_print">
+          <h4> Comments </h4>
+            <ul>
+              <% pod.comment.each do |cmt| %>
+                <li><%= cmt.body %></li>
+      <%= link_to "Delete", pod_comment_path(pod, cmt), method: :delete,
+                  data: {confirm: "Are you sure you want delete the comment?"} %>
+              <% end %>
+            </ul>
+        </div>
+
+      <%= form_for [pod, @comment] do |pod| %>
+      <div class="comment_form">
+          <%= pod.text_area :body  %>
+      </div>
+      <%= pod.submit %>
+      </form>
+
+
+
+    </div>
+    <% # that div bracket for the whole blog class %>
         <% end %>
-      </ul>
-  </div>
-
-<%= form_for [pod, @comment] do |pod| %>
-<div>
-    <%= pod.text_area :body  %>
-</div>
-<%= pod.submit %>
-</form>
-
-  <% end %>
-  <hr>
-<% end %>
+        <hr>
+      <% end %>

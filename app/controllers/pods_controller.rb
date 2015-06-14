@@ -9,6 +9,10 @@ class PodsController < ApplicationController
     @pod = Pod.new
   end
 
+  def show
+    @comment = Comment.all
+  end
+
   def create
     @pod = Pod.new(params.require(:pod).permit([:title, :body]))
 

@@ -19,8 +19,25 @@ class CommentsController < ApplicationController
     end
   end
 
+  def edit
+      if @comment.update
+        flash[:notice] = "Comment uddated!"
+        redirect_to root_path
+      else
+        flash[:alert] = "Oups something went wrong!"
+        render :edit
+      end
+  end
+
+
   def destroy
-    
+    @pod = Pod.find params[:pod_id]
+    @comment = Comment.find params[:id]
+
+    @comment.destroy
+      flash[:notice] = "Comment deleted!"
+    redirect_to root_path
+
   end
 
 end
