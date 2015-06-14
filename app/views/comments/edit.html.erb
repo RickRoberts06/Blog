@@ -1,0 +1,9 @@
+<h1>Edit your comment</h1>
+
+<%= form_for [@pod, @comment] do |pod| %>
+<div class="comment_form">
+    <%= pod.text_area :body  %>
+</div>
+<%= pod.submit %>
+</form>
+<% end %>

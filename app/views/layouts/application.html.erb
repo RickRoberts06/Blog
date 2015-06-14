@@ -8,14 +8,14 @@
   <%= csrf_meta_tags %>
 </head>
     <body>
-      <div class="container-fluid">
+      <div class="container">
           <div class="navbar navbar-inverse">
-            <%= link_to "Home", root_path %> ❂
-            <%= link_to "New post", new_pod_path %> ❂
-            <%= link_to "Log in"  %>
+            <%= link_to "Home ❂", root_path %>
+            <%= link_to "New post ❂", new_pod_path %>
+            <%= link_to "Log in ❂"  %>
           </div>
 
-
+              <%= image_tag url="Mason-Jar-Cuties.jpg", :width => 430, :class => "style_image" %>
           <%= yield %>
       </div>
     </body>

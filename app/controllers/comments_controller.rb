@@ -20,8 +20,17 @@ class CommentsController < ApplicationController
   end
 
   def edit
-      if @comment.update
-        flash[:notice] = "Comment uddated!"
+    @pod     = Pod.find params[:pod_id]
+    @comment = Comment.find params[:id]
+  end
+
+  def update
+    # @pod              = Pod.find params[:pod_id]
+    @comment          = Comment.find params[:id]
+    # comment_params    = params.require(:comment).permit(:body)
+
+      if @comment.update(params.require(:comment).permit(:body))
+        flash[:notice] = "Comment updated!"
         redirect_to root_path
       else
         flash[:alert] = "Oups something went wrong!"
@@ -29,9 +38,7 @@ class CommentsController < ApplicationController
       end
   end
 
-
   def destroy
-    @pod = Pod.find params[:pod_id]
     @comment = Comment.find params[:id]
 
     @comment.destroy

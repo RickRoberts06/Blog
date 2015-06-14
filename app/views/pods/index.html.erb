@@ -18,7 +18,7 @@
       </table>
       <br>
         <div class="post_edit_delete">
-          <%= link_to "Edit", edit_pod_path(pod.id) %>
+          <%= link_to "Edit", edit_pod_path(pod.id) %> |
           <%= link_to "Delete", pod_path(pod.id), method: :delete, data: {confirm: "Are you sure?"} %>
         </div>
 
@@ -27,7 +27,8 @@
             <ul>
               <% pod.comment.each do |cmt| %>
                 <li><%= cmt.body %></li>
-      <%= link_to "Delete", pod_comment_path(pod, cmt), method: :delete,
+                  <%= link_to "Edit", edit_pod_comment_path(pod, cmt) %> | 
+                  <%= link_to "Delete", pod_comment_path(pod, cmt), method: :delete,
                   data: {confirm: "Are you sure you want delete the comment?"} %>
               <% end %>
             </ul>
