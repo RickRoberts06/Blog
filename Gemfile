@@ -22,18 +22,15 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
 gem 'hirb'
 gem 'awesome_print'
 gem 'interactive_editor'
-
 gem 'faker'
-
 gem "quiet_assets"
-
 gem "bootstrap-sass"
-
 gem 'kaminari'
+gem 'cancancan'
+gem 'bcrypt'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,8 +1,12 @@
 class PodsController < ApplicationController
+   before_action :find_pod, only: [:edit, :update, :destroy, :show]
+   before_action :authorize, only: [:destroy, :edit]
+
 
   def index
     @pods = Pod.all
     @comment = Comment.new
+    @pods = Pod.page(params[:page]).per(10)
   end
 
   def new
@@ -14,8 +18,8 @@ class PodsController < ApplicationController
   end
 
   def create
-    @pod = Pod.new(params.require(:pod).permit([:title, :body]))
-
+    @pod = Pod.new(params.require(:pod).permit([:title, :body, :user_id]))
+    @pod.user = current_user
     if @pod.save
       flash[:notice] = "Your post have been saved!"
       redirect_to root_path
@@ -50,6 +54,16 @@ class PodsController < ApplicationController
     else
       flash[:alert] = "Oups, something went wrong!"
       render :delete
+    end
+  end
+
+  def find_pod
+    @pod = Pod.find params[:id]
+  end
+
+  def authorize
+    unless can? :manage, @pod
+      redirect_to root_path, alert: "Access Denied"
     end
   end
 

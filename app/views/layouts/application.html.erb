@@ -8,15 +8,22 @@
   <%= csrf_meta_tags %>
 </head>
     <body>
-      <div class="container">
-          <div class="navbar navbar-inverse">
-            <%= link_to "Home ❂", root_path %>
-            <%= link_to "New post ❂", new_pod_path %>
-            <%= link_to "Log in ❂"  %>
-          </div>
 
-              <%= image_tag url="Mason-Jar-Cuties.jpg", :width => 430, :class => "style_image" %>
+          <div class="navbar navbar-default">
+            <%= link_to "Home", root_path %> |
+            <%= link_to "New post", new_pod_path %> |
+
+            <% if user_signed_in? %>
+            <i class="glyphicon glyphicon-user"></i>
+              Hello <%= current_user.full_name %> |
+              <%= link_to "Log out", sessions_path, method: :delete,
+                  data: {confirm: "Are you sure you want to log out?"}%>
+                  <% else %>
+                    <%= link_to "Log in", new_session_path %> |
+                    <%= link_to "Sign up", new_user_path %>
+                  <% end %>
+          </div>
           <%= yield %>
-      </div>
+
     </body>
 </html>
