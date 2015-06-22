@@ -7,7 +7,6 @@ class PodsController < ApplicationController
     @comment = Comment.new
     @pods = Pod.page(params[:page]).per(10)
 
-    @like = @pod.like_for(current_user)
   end
 
   def new
@@ -16,7 +15,6 @@ class PodsController < ApplicationController
 
   def show
     @comment = Comment.all
-     @like   = @pod.like_for(current_user)
      @pod = Pod.find params[:id]
   end
 

@@ -6,6 +6,7 @@
     <hr>
 
             <% @pods.order("id DESC").each do |pod| %>
+              <%= like = pod.like_for(current_user) %>
             <table>
           <div class="pod">
             <tr>
@@ -25,12 +26,13 @@
               <%= link_to "Delete", pod_path(pod.id), method: :delete, data:
               {confirm: "Are you sure?"} %> |
 
+
                 <% if pod.liked_by?(current_user) %>
-                <%= link_to "<i class='glyphicon glyphicon-thumbs-down red'></i>".html_safe, pod_like_path(pod, @like),
+                <%= link_to "<i class='glyphicon glyphicon-thumbs-up green'></i> Unlike".html_safe, pod_like_path(pod, like),
                                                                   method: :delete %>
                 <% else %>
 
-              <%= link_to "<i class='glyphicon glyphicon-thumbs-up green'></i>".html_safe, pod_likes_path(pod),
+              <%= link_to "Like".html_safe, pod_likes_path(pod),
                                                                 method: :post %>
                   <% end %>
             </div>

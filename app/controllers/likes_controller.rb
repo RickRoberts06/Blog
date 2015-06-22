@@ -18,7 +18,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @like = pod.like_for(current_user)
+    @like = @pod.like_for(current_user)
     @like.destroy
       redirect_to root_path, notice: "Un-Liked"
   end
