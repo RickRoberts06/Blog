@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :pods, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  has_many :likes, dependent: :destroy
+  has_many :liked_pods, through: :likes, source: :pod
+
   def full_name
     "#{first_name} #{last_name}".strip.squeeze(" ")
   end
