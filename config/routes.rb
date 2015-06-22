@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :pods do
     resources :comments
+    resources :likes
   end
 
 

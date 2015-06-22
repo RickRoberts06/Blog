@@ -2,11 +2,11 @@ class PodsController < ApplicationController
    before_action :find_pod, only: [:edit, :update, :destroy, :show]
    before_action :authorize, only: [:destroy, :edit]
 
-
   def index
     @pods = Pod.all
     @comment = Comment.new
     @pods = Pod.page(params[:page]).per(10)
+
   end
 
   def new
@@ -15,6 +15,7 @@ class PodsController < ApplicationController
 
   def show
     @comment = Comment.all
+     @pod = Pod.find params[:id]
   end
 
   def create
@@ -67,5 +68,8 @@ class PodsController < ApplicationController
     end
   end
 
+  def find_pod
+    @pod = Pod.find params[:pod_id]
+  end
 
 end
