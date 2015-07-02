@@ -6,7 +6,6 @@ class PodsController < ApplicationController
     @pods = Pod.all
     @comment = Comment.new
     @pods = Pod.page(params[:page]).per(10)
-
   end
 
   def new
@@ -36,7 +35,6 @@ class PodsController < ApplicationController
 
   def update
     @pod = Pod.find(params[:id])
-
     if @pod.update(params.require(:pod).permit([:title, :body]))
       redirect_to root_path
       flash[:notice] = "Your post have been updated!"
@@ -69,7 +67,7 @@ class PodsController < ApplicationController
   end
 
   def find_pod
-    @pod = Pod.find params[:pod_id]
+    @pod = Pod.find params[:id]
   end
 
 end

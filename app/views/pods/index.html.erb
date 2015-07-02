@@ -1,93 +1,99 @@
-    <div class="col-md-8">
+<div class="col-md-8">
 
-    <%= image_tag url="Mason-Jar-Cuties.jpg", :width => 430, :class => "style_image" %>
+  <h1 class="title"> Welcome to the awesome blog, bam!! </h1>
+  <hr>
 
-    <h1 class="title"> Welcome to the awesome blog, bam!! </h1>
-    <hr>
+  <% @pods.order("id DESC").each do |pod| %>
+  <% like = pod.like_for(current_user) %>
+  <table>
+    <div class="pod">
+      <tr>
+        <th><h2><%= pod.title %></h2></th>
+      </tr>
+    </div>
 
-            <% @pods.order("id DESC").each do |pod| %>
-              <%= like = pod.like_for(current_user) %>
-            <table>
-          <div class="pod">
-            <tr>
-              <th><h1><%= pod.title %></h1></th>
-            </tr>
-          </div>
+    <div class="pod">
+      <tr>
+        <td><%= pod.body %></td>
+      </tr>
+    </div>
+  </table>
+  <div class="post_edit_delete">
+  <% if can? :manage, pod %>
+    <%= link_to "Edit", edit_pod_path(pod.id) %> |
+    <%= link_to "Delete", pod_path(pod.id), method: :delete, data:
+    {confirm: "Are you sure?"} %>
+    <% end %>
+<br>
+    <div class="col-xs-6 right">
 
-          <div class="pod">
-            <tr>
-              <td><%= pod.body %></td>
-            </tr>
-          </div>
-          </table>
-          <br>
-            <div class="post_edit_delete">
-              <%= link_to "Edit", edit_pod_path(pod.id) %> |
-              <%= link_to "Delete", pod_path(pod.id), method: :delete, data:
-              {confirm: "Are you sure?"} %> |
+    <% if pod.liked_by?(current_user) %>
+      <%= link_to "Unlike".html_safe, pod_like_path(pod, like),
+                                            method: :delete %>
+    <% else %>
 
+      <%= link_to "Like".html_safe, pod_likes_path(pod),
+                                            method: :post %>
+    <% end %>
+  | <i class='glyphicon glyphicon-thumbs-up blue'></i>
+    <%= pod.likes.count  %>
+    </div>
+  </div>
 
-                <% if pod.liked_by?(current_user) %>
-                <%= link_to "<i class='glyphicon glyphicon-thumbs-up green'></i> Unlike".html_safe, pod_like_path(pod, like),
-                                                                  method: :delete %>
-                <% else %>
+  <div class="comment_print">
+    <h4> Comments </h4>
+    <ul>
+      <% pod.comment.each do |cmt| %>
+      <li><%= cmt.body %></li>
+      <% if can? :manage, cmt %>
+      <%#= link_to "Edit", edit_pod_comment_path(pod, cmt) %>
+      <%= link_to "Delete", pod_comment_path(pod, cmt), method: :delete,
+      data: {confirm: "Are you sure you want delete the comment?"} %>
+      <% end %>
+      <% end %>
+    </ul>
+  </div>
 
-              <%= link_to "Like".html_safe, pod_likes_path(pod),
-                                                                method: :post %>
-                  <% end %>
-            </div>
-
-            <div class="comment_print">
-              <h4> Comments </h4>
-                <ul>
-
-                  <% pod.comment.each do |cmt| %>
-                    <li><%= cmt.body %></li>
-                      <%= link_to "Edit", edit_pod_comment_path(pod, cmt) %> |
-                      <%= link_to "Delete", pod_comment_path(pod, cmt), method: :delete,
-                      data: {confirm: "Are you sure you want delete the comment?"} %>
-                  <% end %>
-                </ul>
-            </div>
-
-          <%= form_for [pod, @comment] do |pod| %>
-          <div class="comment_form">
-              <%= pod.text_area :body  %>
-          </div>
-          <%= pod.submit %>
-          </form>
-
-
-
-        <% # that div bracket for the whole blog class %>
-            <% end %>
-            <hr>
-          <% end %>
-        <%= paginate @pods %>
-        </div>
-
-        <div class="col-md-3">
-          <h3> Blog updates </h3>
-          <p>
-            Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper
-             nulla non metus auctor fringilla. Cum sociis natoque penatibus et
-             magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo
-              cursus magna, vel scelerisque nisl consectetur et. Nullam id dolor
-              id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac
-              consectetur ac, vestibulum at eros. Morbi leo risus, porta ac
-               consectetur ac, vestibulum at eros.
-          </p>
-
-          <h3> Most viewed Post </h3>
-          <p>
-            Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper
-             nulla non metus auctor fringilla. Cum sociis natoque penatibus et
-             magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo
-              cursus magna, vel scelerisque nisl consectetur et. Nullam id dolor
-              id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac
-              consectetur ac, vestibulum at eros. Morbi leo risus, porta ac
-               consectetur ac, vestibulum at eros.
-          </p>
+  <%= form_for [pod, @comment] do |pod| %>
+  <div class="comment_form">
+    <%= pod.text_area :body  %>
+  </div>
+    <%= pod.submit %>
+  </form>
 
 
-        </div>
+
+  <% # that div bracket for the whole blog class %>
+  <% end %>
+  <hr>
+  <% end %>
+  <%= paginate @pods %>
+</div>
+
+<div class="col-md-3">
+  <div class="updates">
+  <h3> Blog updates </h3>
+    <p>
+    Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper
+    nulla non metus auctor fringilla. Cum sociis natoque penatibus et
+    magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo
+    cursus magna, vel scelerisque nisl consectetur et. Nullam id dolor
+    id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac
+    consectetur ac, vestibulum at eros. Morbi leo risus, porta ac
+     consectetur ac, vestibulum at eros.
+    </p>
+  </div>
+
+<div class="updates">
+  <h3> Most viewed Post </h3>
+    <p>
+    Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper
+    nulla non metus auctor fringilla. Cum sociis natoque penatibus et
+    magnis dis parturient montes, nascetur ridiculus mus. Praesent commodo
+    cursus magna, vel scelerisque nisl consectetur et. Nullam id dolor
+    id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac
+    consectetur ac, vestibulum at eros. Morbi leo risus, porta ac
+     consectetur ac, vestibulum at eros.
+    </p>
+</div>
+</div>
