@@ -39,16 +39,6 @@
   | <i class='glyphicon glyphicon-thumbs-up blue'></i>
     <%= pod.likes.count  %>
   <br>
-  <!-- favorite  -->
-    <% if pod.favorited_by?(current_user) %>
-      <%= link_to "Unfavorite", pod_favorite_path(pod, favorite), method: :delete %>
-    <% else %>
-      <%= link_to "Favorite", pod_favorites_path(pod), method: :post %>
-    <% end %>
-  | <i class='glyphicon glyphicon-star-empty blue'></i>
-    <%= pod.favorites.count  %>
-    <%= link_to "- See Favorites", pod_favorites_path(pod) %>
-    <br>
     <!-- tag -->
     <% if pod.tagged_by?(current_user) %>
       <%= link_to "Untag", pod_tag_path(pod, tag), method: :delete %>
@@ -57,6 +47,18 @@
     <% end %>
   | <i class='glyphicon glyphicon-tags blue'></i>
     <%= pod.tags.count  %>
+    <br>
+  <!-- favorite  -->
+  <% if current_user != pod.user %>
+    <% if pod.favorited_by?(current_user) %>
+      <%= link_to "Unfavorite", pod_favorite_path(pod, favorite), method: :delete %>
+    <% else %>
+      <%= link_to "Favorite", pod_favorites_path(pod), method: :post %> | 
+    <% end %>
+  <% end %>
+  <i class='glyphicon glyphicon-star-empty blue'></i>
+    <%= pod.favorites.count  %>
+    <%= link_to "- See Favorites", pod_favorites_path(pod) %>
     </div>
   </div>
 
