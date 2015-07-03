@@ -8,6 +8,7 @@
   <% @pods.order("id DESC").each do |pod| %>
   <% like = pod.like_for(current_user) %>
   <% favorite = pod.favorite_for(current_user) %>
+  <% tag = pod.tag_for(current_user) %>
   <table>
     <div class="pod">
       <tr>
@@ -28,7 +29,7 @@
     {confirm: "Are you sure?"} %>
     <% end %>
 <br>
-
+<!-- like -->
     <div class="col-xs-6 right">
     <% if pod.liked_by?(current_user) %>
       <%= link_to "Unlike", pod_like_path(pod, like), method: :delete %>
@@ -38,14 +39,24 @@
   | <i class='glyphicon glyphicon-thumbs-up blue'></i>
     <%= pod.likes.count  %>
   <br>
+  <!-- favorite -->
     <% if pod.favorited_by?(current_user) %>
       <%= link_to "Unfavorite", pod_favorite_path(pod, favorite), method: :delete %>
     <% else %>
       <%= link_to "Favorite", pod_favorites_path(pod), method: :post %>
     <% end %>
-  | <i class='glyphicon glyphicon-thumbs-up blue'></i>
+  | <i class='glyphicon glyphicon-star-empty blue'></i>
     <%= pod.favorites.count  %>
     <%= link_to "- See Favorites", pod_favorites_path(pod) %>
+    <br>
+    <!-- tag -->
+    <% if pod.tagged_by?(current_user) %>
+      <%= link_to "Untag", pod_tag_path(pod, tag), method: :delete %>
+    <% else %>
+      <%= link_to "Tag", pod_tags_path(pod), method: :post %>
+    <% end %>
+  | <i class='glyphicon glyphicon-tags blue'></i>
+    <%= pod.tags.count  %>
     </div>
   </div>
 

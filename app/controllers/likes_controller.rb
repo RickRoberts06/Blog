@@ -7,7 +7,7 @@ class LikesController < ApplicationController
   end
 
   def create
-    @like = Like.new
+    @like = Like.new params[:tag_id]
     @like.user = current_user
     @like.pod = @pod
     if @like.save

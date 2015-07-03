@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
   has_many :favorites, dependent: :destroy
   has_many :faved_pods, through: :favorites, source: :pod
 
+  has_many :tags, dependent: :destroy
+  has_many :tagged_pods, through: :tags, source: :pod
+
   def full_name
     "#{first_name} #{last_name}".strip.squeeze(" ")
   end
