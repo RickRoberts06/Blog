@@ -1,0 +1,20 @@
+<div class="faved_pods">
+
+  <h1>Favorites blog posts </h1>
+  <hr>
+  <% current_user.faved_pods.each do |pod| %>
+    <table>
+    <tr>
+      <th>
+        <%= pod.title %>
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <%= pod.body %>
+      </td>
+    </tr>
+  </table>
+  <br>
+<% end %>
+</div>

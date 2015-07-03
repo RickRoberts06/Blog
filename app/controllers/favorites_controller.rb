@@ -1,29 +1,31 @@
-class LikesController < ApplicationController
+class FavoritesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_pod
 
   def index
-    @users = @pod.liking_users
+    @users = @pod.favoriting_users
+    @pods = @pod.favorite_for(current_user)
   end
 
   def create
-    @like = Like.new
-    @like.user = current_user
-    @like.pod = @pod
-    if @like.save
-      redirect_to root_path, notice: "Liked"
+    @favorite = Favorite.new
+    @favorite.user = current_user
+    @favorite.pod = @pod
+    if @favorite.save
+      redirect_to root_path, notice: "Favorited"
     else
-      redirect_to root_path, alert: "Can't Like"
+      render root_path, alert: "Not Favorited"
     end
   end
 
   def destroy
-    @like = @pod.like_for(current_user)
-    @like.destroy
-      redirect_to root_path, notice: "Un-Liked"
+  @favorite = @pod.favorite_for(current_user)
+  if @favorite.destroy
+    redirect_to root_path, notice: "Un-Favorited"
   end
+end
 
-  private
+private
 
   def find_pod
     @pod = Pod.find params[:pod_id]

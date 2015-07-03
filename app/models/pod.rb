@@ -5,6 +5,9 @@ class Pod < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :liking_users, through: :likes, source: :user
 
+  has_many :favorites, dependent: :destroy
+  has_many :favoriting_users, through: :favorites, source: :user
+
   validates :title, presence: true, uniqueness: true
 
   def self.search(term)
@@ -17,6 +20,14 @@ class Pod < ActiveRecord::Base
 
   def like_for(user)
     likes.find_by_user_id(user)
+  end
+
+  def favorited_by?(user)
+    favorites.where(user: user).present?
+  end
+
+  def favorite_for(user)
+    favorites.find_by_user_id(user)
   end
 
 end

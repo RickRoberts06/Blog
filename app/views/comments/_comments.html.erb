@@ -1,0 +1,21 @@
+<div class="comment_print">
+  <h4> Comments </h4>
+  <ul>
+    <% pod.comment.each do |cmt| %>
+    <li><%= cmt.body %></li>
+    <% if can? :manage, cmt %>
+    <%#= link_to "Edit", edit_pod_comment_path(pod, cmt) %>
+    <%= link_to "Delete", pod_comment_path(pod, cmt), method: :delete,
+    data: {confirm: "Are you sure you want delete the comment?"} %>
+    <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<%= form_for [pod, @comment] do |pod| %>
+<div class="comment_form">
+  <%= pod.text_area :body  %>
+</div>
+  <%= pod.submit %>
+</form>
+<% end %>

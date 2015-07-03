@@ -15,6 +15,7 @@ class PodsController < ApplicationController
   def show
     @comment = Comment.all
      @pod = Pod.find params[:id]
+     @favorite = @pod.favorite_for(currrent_user)
   end
 
   def create
