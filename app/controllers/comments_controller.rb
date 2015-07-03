@@ -10,16 +10,10 @@ class CommentsController < ApplicationController
 
   def create
     @pod = Pod.find params[:pod_id]
-    # @user = User.find params[:user_id]
-    comment_params = params.require(:comment).permit(:body)
     @comment = current_user.comments.new comment_params
-    #@comment = Comment.new comment_params
-
-#   @comment.pod_id = @pod_id (for reference)
     @comment.pod = @pod
     if @comment.save
-
-
+    CommentMailer.notify_pod_owner(@comment).deliver_now
     redirect_to root_path
     end
   end
@@ -30,11 +24,8 @@ class CommentsController < ApplicationController
   end
 
   def update
-    # @pod              = Pod.find params[:pod_id]
-    @comment          = Comment.find params[:id]
-    # comment_params    = params.require(:comment).permit(:body)
-
-      if @comment.update(params.require(:comment).permit(:body))
+         @comment = Comment.find params[:id]
+      if @comment.update(comment_params)
         flash[:notice] = "Comment updated!"
         redirect_to root_path
       else
@@ -49,6 +40,12 @@ class CommentsController < ApplicationController
     @comment.destroy
       flash[:notice] = "Comment deleted!"
     redirect_to root_path
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:body)
   end
 
   def find_comment
