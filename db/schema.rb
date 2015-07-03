@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150621212306) do
+ActiveRecord::Schema.define(version: 20150702234201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20150621212306) do
   end
 
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "pod_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorites", ["pod_id"], name: "index_favorites_on_pod_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
@@ -62,9 +72,12 @@ ActiveRecord::Schema.define(version: 20150621212306) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.boolean  "admin"
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "favorites", "pods"
+  add_foreign_key "favorites", "users"
   add_foreign_key "likes", "pods"
   add_foreign_key "likes", "users"
   add_foreign_key "pods", "users"

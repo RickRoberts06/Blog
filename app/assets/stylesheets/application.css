@@ -19,6 +19,9 @@
    font-size: 160%;
    padding-left: 10px;
    padding-top:  9px;
+   position: static;
+   border: solid 2px black;
+   background-color: white;
  }
 
  body {
@@ -39,7 +42,23 @@
    border: 2px solid #000;
    margin-left: auto;
    margin-right: auto;
+   width: 100%;
+
  }
 
  .col-md-4 {
+ }
+
+ .nav_right {
+   text-align: right;
+   padding-right: 25px;
+ }
+
+ .updates {
+   background-color: white;
+   border-radius: 10px;
+   border: solid 2px black;
+   margin-top: 25px;
+   margin-left: 20px;
+   padding: 10px;
  }

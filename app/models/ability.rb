@@ -9,7 +9,7 @@ class Ability
          pod.user == user
        end
 
-       can :manage, Comment do |comment|
+       can :destroy, Comment do |comment|
          comment.pod.user == user || comment.user == user
        end
 
