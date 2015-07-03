@@ -39,7 +39,7 @@
   | <i class='glyphicon glyphicon-thumbs-up blue'></i>
     <%= pod.likes.count  %>
   <br>
-  <!-- favorite -->
+  <!-- favorite  -->
     <% if pod.favorited_by?(current_user) %>
       <%= link_to "Unfavorite", pod_favorite_path(pod, favorite), method: :delete %>
     <% else %>
